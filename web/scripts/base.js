@@ -5,8 +5,14 @@ var ACHORD = {
   Functions : {},
   Constants : {},
   Globals : {},
-  Options : {}
+  Options : {},
+  Test : {}
 };
+
+// Initialization of the option values
+ACHORD.Options.Tempo = 120;
+ACHORD.Options.StringNum = 6;
+ACHORD.Options.Strings = [64, 69, 74, 79, 83, 88];
 
 /**
  *@name         Create Simple Element
@@ -52,6 +58,69 @@ ACHORD.Functions.CreateSimpleElement = function (id, cls, content, attr) {
 };
 
 // Currently unused
-ACHORD.Functions.CreateElement = function () {
+ACHORD.Functions.CreateElement = function (obj) {
+  var elem, a, c, child, type;
   
+  type = obj.type || "div";
+  elem = document.createElement(type);
+  
+  if (obj.id) {
+    elem.setAttribute("id", obj.id);
+  }
+  
+  if (obj.cls) {
+    elem.setAttribute("class", obj.cls);
+  }
+  
+  if (obj.before_content) {
+    elem.innerHTML = obj.before_content;
+  }
+  
+  // Loop through all other attributes that we should be setting
+  for (a in obj.attr) {
+    if (obj.attr.hasOwnProperty(a)) {
+      try {
+        elem.setAttribute(obj.attr[a].key, obj.attr[a].val);
+      } catch (e) {
+        continue;
+      }
+    }
+  }
+  
+  // Loop through all of the children listed for this element
+  for (c in obj.children) {
+    if (obj.children.hasOwnProperty(c)) {
+      try {
+        if (obj.children[c].setAttribute) {
+          elem.appendChild(obj.children[c]);
+        } else {
+          child = ACHORD.Functions.CreateElement(obj.children[c]);
+          elem.appendChild(child);
+        }
+      } catch (e) {
+        continue;
+      }
+    }
+  }
+  
+  // Add any after html
+  if (obj.after_content) {
+    elem.innerHTML += obj.after_content;
+  }
+  
+  return elem;
+};
+
+
+ACHORD.Functions.CreateChord = function () {
+  var c = new ACHORD.Objects.Chord("A", "G# Maj");
+  c.Draw(document.body);
+  c.AddNote(0, 2, 1);
+  c.AddNote(1, 4, 3);
+  c.AddNote(2, 4, 4);
+  c.AddNote(3, 3, 2);
+  c.AddNote(4, 2, 1);
+  c.AddNote(5, 2, 1);
+  
+  c.PlayChord(1.5);
 };
