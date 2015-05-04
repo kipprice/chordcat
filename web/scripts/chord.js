@@ -1,4 +1,4 @@
-/*globals ACHORD*/
+/*globals ACHORD,window*/
 
 ACHORD.Objects.Chord = function (id, name) {
   
@@ -17,11 +17,11 @@ ACHORD.Objects.Chord = function (id, name) {
   this.AddListeners();
 };
 
-/**
+/*********************************************************
  *@name Draw [Chord]
  *@description  Draws the elements for the chord on the provided parent
  *@param  parent  The parent element to add the div to
- */
+ ********************************************************/
 ACHORD.Objects.Chord.prototype.Draw = function (parent) {
   "use strict";
   var width;
@@ -34,24 +34,23 @@ ACHORD.Objects.Chord.prototype.Draw = function (parent) {
   
   parent.appendChild(this.div);
   
-  this.div.style.height = (this.div.offsetWidth * 1.2) + "px";
+  this.fretboardDiv.style.height = (this.fretboardDiv.offsetWidth * 1.2) + "px";
   
   this.parent = parent;
   
 };
 
-/**
+/*********************************************************
  *@name Add Elements [Chord]
  *@description  Adds the elements of the chord to the main div.
- */
+ *********************************************************/
 ACHORD.Objects.Chord.prototype.AddElements = function () {
   "use strict";
   var root;
-  root = this.chordDiv;
+  root = this.fretboardDiv;
   
   // Append the chord diagram part
   this.div.appendChild(this.chordDiv);
-
   
   // Add all of the frets ...
   root.appendChild(this.fretContainer);
@@ -59,15 +58,45 @@ ACHORD.Objects.Chord.prototype.AddElements = function () {
   // ... and all of the strings...
   root.appendChild(this.stringContainer);
   
-  
   // ... and finally all of the notes
   root.appendChild(this.noteContainer);
+  
+  // Add the fretboard to the chord div
+  this.chordDiv.appendChild(root);
 };
 
-/**
+/****************************************************
+ *@name Resize
+ *@description Resizes all elements based on how much space is actually available. Mostly used for fonts.
+ ****************************************************/
+ACHORD.Objects.Chord.prototype.Resize = function () {
+  var height, fSize, resizeMap;
+  
+  resizeMap = function (elem, idx, arr) {
+    var child;
+    if (elem) {
+      child = elem.children[0];
+      if (child) {
+        height = elem.offsetHeight;
+        fSize = child.style.fontSize = child.style.height = Math.floor(height * 0.75) + "px";
+      }
+    }
+  };
+  
+  // Resize the font to fit within the actual note display
+  this.noteDivs = this.noteDivs.map(resizeMap);
+  
+  // Resize the top labels
+  this.stringLblsDiv = this.stringLblsDiv.map(resizeMap);
+  
+  // Resize the label for the chord itself, and the top elements
+  //this.nameDiv.style.fontSize = fSize;
+};
+
+/************************************************************
  *@name Create Elements [Chord]
  *@description  Creates all elements (that we currently know of) for the chord diagram.
- */
+ ************************************************************/
 ACHORD.Objects.Chord.prototype.CreateElements = function () {
   "use strict";
   var idx;
@@ -80,9 +109,13 @@ ACHORD.Objects.Chord.prototype.CreateElements = function () {
     // Draw the name and open/closed strings
   this.nameDiv = ACHORD.Functions.CreateSimpleElement(this.id + "|name", "chord_name", this.name);
   this.stringLblContDiv = ACHORD.Functions.CreateSimpleElement(this.id + "|status", "string_status");
+  this.startFretDiv = ACHORD.Functions.CreateSimpleElement(this.id + "|start_fret", "start_fret");
   
   this.chordDiv.appendChild(this.nameDiv);
   this.chordDiv.appendChild(this.stringLblContDiv);
+  
+  // Create the overarching container for the fretboard
+  this.fretboardDiv = ACHORD.Functions.CreateSimpleElement(this.id + "|fretboard", "fretboard");
   
   // Create the container for the strings & frets
   this.fretContainer = ACHORD.Functions.CreateSimpleElement(this.id + "|frets", "fret_base");
@@ -103,6 +136,13 @@ ACHORD.Objects.Chord.prototype.CreateElements = function () {
   
 }
 
+/*****************************************************************************
+ *@name AddNote
+ *@description Adds a note to our collection and draws a symbol on the chord
+ *@param int string The string of the chord diagram that this should be added to
+ *@param int fret The fret gap that it should be added to
+ *@param int fingering What finger to use in this chord diagram
+ ****************************************************************************/
 ACHORD.Objects.Chord.prototype.AddNote = function (string, fret, fingering) {
   "use strict";
   var idx, fDiv, w, h;
@@ -137,16 +177,23 @@ ACHORD.Objects.Chord.prototype.AddNote = function (string, fret, fingering) {
     this.noteDivs[idx].appendChild(fDiv);
   }
   
-  // Move the note to the appropriate position
-  this.noteDivs[idx].style.left = ((this.stringDivs[string].offsetLeft - (9)) + "px");
-  this.noteDivs[idx].style.top = ((this.fretDivs[fret - 1].offsetTop + (this.fretDivs[fret - 1].offsetHeight / 2) - 8) + "px");
-  
   this.noteContainer.appendChild(this.noteDivs[idx]);
+  w = this.noteDivs[idx].offsetWidth;
+  h = this.noteDivs[idx].offsetHeight;
   
+  // Move the note to the appropriate position
+  this.noteDivs[idx].style.left = ((this.stringDivs[string].offsetLeft - (w / 2)) + "px");
+  this.noteDivs[idx].style.top = ((this.fretDivs[fret - 1].offsetTop + (this.fretDivs[fret - 1].offsetHeight / 2) - (h / 2)) + "px");
+  
+  this.Resize();
   
 }
 
-
+/**********************************************************
+ *@name         PlayChord
+ *@description  Plays all of the notes associated with this chord
+ *@param        len   The length that the chord should be played
+ *********************************************************/
 ACHORD.Objects.Chord.prototype.PlayChord = function (len) {
   "use strict";
   if (!this.notes) {
@@ -156,7 +203,10 @@ ACHORD.Objects.Chord.prototype.PlayChord = function (len) {
   ACHORD.Functions.PlayChord(this.notes, len);
 };
 
-
+/**********************************************************
+ *@name AddListeners
+ *@description Adds listeners to the appropriate elements in the chord diagram.
+ **********************************************************/
 ACHORD.Objects.Chord.prototype.AddListeners = function () {
   "use strict";
   var auxStringListener, that, i;
@@ -179,17 +229,12 @@ ACHORD.Objects.Chord.prototype.AddListeners = function () {
   this.current_fret = -1;
   this.current_string = -1;
   
+  
+  window.onresize = function (e) {
+    that.Resize();
+  }
 };
 
-ACHORD.Objects.Chord.prototype.CheckForNewNote = function () {
-  "use strict";
-  
-  if (this.current_fret < 0) return;
-  if (this.current_string < 0) return;
-  
-  this.AddNote(this.current_string, this.current_fret);
-  
-  this.current_fret = -1;
-  this.current_string = -1;
+ACHORD.Objects.Chord.prototype.FindPositions = function (tone, chord_type) {
   
 };

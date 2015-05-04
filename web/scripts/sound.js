@@ -2,12 +2,12 @@
 
 ACHORD.Globals.AudioContext = new (window.AudioContext || window.webkitAudioContext)();
   
-/**
+/****************************************************
  *@name Play Note
  *@description Plays a given note for the provided length.
  *@param  note  The MIDI note number for the tone
  *@param  length  In number of beats, how long the note should be played
- **/
+ ******************************************************/
 ACHORD.Functions.PlayNote = function (note, length) {
   "use strict";
   var osc, gain, context;
@@ -30,7 +30,12 @@ ACHORD.Functions.PlayNote = function (note, length) {
   osc.start();
 };
 
-  
+/********************************************************
+ *@name Play Chord
+ *@description Plays the notes passed in for the appropriate amount of time.
+ *@param notes An array of midi notes that should be played for this chord
+ *@param length How long, in beats, the chord should be played
+ *******************************************************/
 ACHORD.Functions.PlayChord = function (notes, length) {
   "use strict";
   var idx, oscs, gains, context;
@@ -69,7 +74,12 @@ ACHORD.Functions.PlayChord = function (notes, length) {
   oscs.forEach(startOscillator);
 };
 
-  
+/******************************************************
+ *@name ConvertNoteToFrequency
+ *@description From a MIDI note number, converts that note to the appropriate frequency
+ *@note The MIDI note to convert to a frequency
+ *@returns The frequency value for this note
+ ******************************************************/
 ACHORD.Functions.ConvertNoteToFreq = function (note) {
   var result, diff;
   
@@ -80,11 +90,15 @@ ACHORD.Functions.ConvertNoteToFreq = function (note) {
   
   // Round it off to be a nice number
   result = (Math.round(result * 100) / 100);
-
   
   return result;
 };
-
+/****************************************************
+ *@name GetNoteLength
+ *@description Calculates the numbers of milliseconds a given number of beats will take.
+ *@param int beats The number of beats that we want to calculate milliseconds for
+ *@returns The milliseconds equivalent to the beats passed in
+ ***************************************************/
 ACHORD.Functions.GetNoteLength = function (beats) {
   var bpms;
   

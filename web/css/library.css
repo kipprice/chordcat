@@ -1,0 +1,37 @@
+.libraryWrapper{
+  position: fixed;
+  width: 30%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  border-right: 1px solid #999;
+}
+
+.chordsContainer, .libraryBottom {
+  height: 90%;
+  padding: 5px;
+  margin: 10px;
+  background-color: rgba(0,0,0,.1);
+}
+
+.menuBar{
+  width: 4%;
+  position: absolute;
+  top: 0px;
+  left: 98%;
+  height: 100%;
+  
+}
+
+.minLibrary{
+  position: absolute;
+  width: 100%;
+  top: 45%;
+  height: 10%;
+  background-color: #555;
+}
+
+.chordSelectLbl {
+  display: inline-block;
+  font-size: 10pt;
+}

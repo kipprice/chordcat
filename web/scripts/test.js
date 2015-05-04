@@ -29,6 +29,12 @@ ACHORD.Test.ElemWithKids2 = function () {
   document.body.appendChild(elem);
 }
 
+ACHORD.Test.NoteName = function () {
+  for (var i = 0; i <= 127; i += 1) {
+    console.log(i + ": " + ACHORD.Functions.GetNoteName(i));
+  }
+};
+
 // Plays an A major scale
 ACHORD.Test.PlayScale = function () {
   var scl, idx;
@@ -82,7 +88,6 @@ ACHORD.Test.PlayAllMajorChords = function () {
     ACHORD.Test.auxPlayChord(n1 + idx, n2 + idx, n3 + idx, 4, ACHORD.Functions.GetNoteLength(4) * idx);
     
   }
-  
 }
 
 ACHORD.Test.AChord = function () {

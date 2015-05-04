@@ -1,0 +1,21 @@
+.btn{
+  background-color: #555;
+  color: #FFF;
+  display: inline-block;
+  padding: 3px;
+  cursor: pointer;
+  font-size: 10pt;
+}
+
+body{
+  font-family: "Segoe UI Light", "Calibri";
+}
+
+select{
+  background-color: rgba(255,255,255,.5);;
+  border: 0px;
+  margin-left: 2px;
+  margin-right: 2px;
+  font-family: "Segoe UI Light", "Calibri";
+  font-size: 10pt;
+}

@@ -1,0 +1,124 @@
+.chord_root{
+  position: relative;
+  width: 10%;
+  height:30%;
+  display: inline-block;
+  margin-right: 2%;
+  padding-left: 0.85%;
+  padding-right: 0.85%;
+}
+
+.chord_root:hover{
+  background-color: #CCC;
+}
+
+.chord_base{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+  z-index: 1;
+}
+
+.chord_name{
+  font-family: "Segoe UI";
+  text-align: center;
+  color: #333;
+  font-size: 9pt;
+}
+
+.chord_base div div{
+  box-sizing: border-box;
+}
+
+.fretboard{
+  border: 1px solid #777;
+  border-bottom: 2px solid #555;
+  border-top: 4px solid #555;
+  position: relative;
+  height: 100%;
+  box-sizing: content-box;
+}
+
+.fret_base, .string_base, .note_base{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.string_base{
+  z-index: 3;
+  white-space: nowrap;
+}
+
+.notes_base{
+  z-index: 4;
+}
+
+.string{
+  height: 100%;
+  width: 1px;
+  margin-right: calc(20% - 1px);
+  background-color: #777;
+  display: inline-block;
+}
+
+.string:last-child{
+  width: 0px;
+  margin-right: 0px;
+  margin-left: 1px;
+}
+
+.string:first-child{
+  width: 0px;
+}
+
+.string_lbl{
+  position: absolute;
+  font-family: "Segoe UI";
+  color: #666;
+}
+
+.fret:first-child{
+  border-top: 0px solid;
+}
+
+.fret{
+  border-top: 1px solid;
+  border-color: #555;
+  height: 20%;
+  width: 100%;
+}
+
+.note {
+  border-radius: 20px;
+  width: 17%;
+  height: 14.5%;
+  background-color: #333;
+  position: absolute;
+  z-index: 4;
+}
+
+.potential_note{
+  border-radius: 20px;
+  width: 17%;
+  height: 14.5%;
+  background-color: #333;
+  position: absolute;
+  z-index: 4;
+  opacity: .4;
+}
+
+.note_finger{
+  color: #eee;
+  text-align: center;
+  margin-top: 0px;
+  font-family: "Segoe UI";
+}
+
+.chordsContainer .note_finger{
+  display: none;
+}
