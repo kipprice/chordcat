@@ -1,0 +1,60 @@
+.song_container{
+  position: fixed;
+  width: 70%;
+  height: 100%;
+  left: 30%;
+  padding: 10px;
+  padding-left: 25px;
+  box-sizing: border-box;
+}
+
+.phrase{
+  margin-bottom: 10px;
+}
+
+.phrase .editable{
+  margin-left: -5px;
+  margin-bottom: 5px;
+}
+
+.bar{
+  height: 50px;
+  display: inline-block;
+}
+
+.strum_container{
+  display: inline-block;
+  height: 100%;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.strum{
+  width: 2px;
+  transform: rotate(25deg);
+  background-color: #BBB;
+  height: 18px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.strum_container:hover .strum{
+  background-color: #555;
+  
+}
+
+.strum.chorded{
+  background-color: #333;
+}
+
+.endBar{
+  border-right: 1px solid #333;
+  height: 100%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.strum_container .editable{
+  font-size: 9pt;
+  height:19px;
+}

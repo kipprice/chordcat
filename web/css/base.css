@@ -7,15 +7,35 @@
   font-size: 10pt;
 }
 
+.btn:hover{
+  background-color: #777;
+}
+
 body{
   font-family: "Segoe UI Light", "Calibri";
 }
 
 select{
-  background-color: rgba(255,255,255,.5);;
-  border: 0px;
+  background-color: rgba(255,255,255,.5);
+  border: 0px solid rgba(0,0,0,0);
   margin-left: 2px;
   margin-right: 2px;
   font-family: "Segoe UI Light", "Calibri";
   font-size: 10pt;
+}
+
+input{
+  font-family: "Segoe UI Light", "Calibri";
+  border: 1px solid rgba(0,0,0,0);
+  background-color: rgba(0,0,0,.05);
+  width: 100%;
+}
+
+input:focus{
+  outline: 0;
+}
+
+.editable:hover{
+  background-color: rgba(0,0,0,.05);
+  cursor: pointer;
 }

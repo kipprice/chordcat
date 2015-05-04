@@ -5,6 +5,12 @@ ACHORD.Objects.Library = function () {
   this.AddEventListeners();
 };
 
+ACHORD.Objects.Library.prototype = Object.create(ACHORD.Objects.Drawable.prototype);
+
+/***************************************************************
+ *@name CreateElements
+ *@description Creates all elements that are needed to display chords in the library
+ ***************************************************************/
 ACHORD.Objects.Library.prototype.CreateElements = function () {
   "use strict";
   var opt;
@@ -31,18 +37,23 @@ ACHORD.Objects.Library.prototype.CreateElements = function () {
   this.bottomSec = ACHORD.Functions.CreateSimpleElement("", "libraryBottom");
   this.chordSelectLbl = ACHORD.Functions.CreateSimpleElement("", "chordSelectLbl", "Create diagram for: ");
   
+  // Create the selector that allows the user to select the tone of the chord
   opt = this.CreateToneOptions();
   this.toneSelector = ACHORD.Functions.CreateElement({type: "select", id : "toneSelect", children : opt});
   
+  // Create the selector that allows the user to select the type of chord
   opt = this.CreateTypeOptions();
   this.typeSelector = ACHORD.Functions.CreateElement({type: "select", id: "typeSelect", children : opt});
   
-  opt = this.CreateBaseOptions();
+  // Create the selector for the root of the chord
+  opt = this.CreateToneOptions();
   this.baseLabel = ACHORD.Functions.CreateSimpleElement("", "chordSelectLbl", "Root");
   this.baseSelector = ACHORD.Functions.CreateElement({type: "select", id : "baseSelect", children : opt});
   
+  // Add a button to click after the chord  details are selected
   this.oldChordBtn = ACHORD.Functions.CreateSimpleElement("oldChord", "btn", "Add");
   
+  // Add all of the appropriate elements
   this.bottomSec.appendChild(this.chordSelectLbl);
   this.bottomSec.appendChild(this.toneSelector);
   this.bottomSec.appendChild(this.typeSelector);
@@ -84,24 +95,10 @@ ACHORD.Objects.Library.prototype.AddChord = function () {
   c.AddNote(5, 2, 1);
 };
 
-/***********************************************************
- *@name Draw
- *@description Draws the elements for the library sidebar.
- *@param HTMLElement parent The element to add the library div to
- ***********************************************************/
-ACHORD.Objects.Library.prototype.Draw = function (parent) {
-  "use strict";
-  
-  this.parent = parent || this.parent;
-  
-  if (this.div.parentNode) {
-    this.div.parentNode.removeChild(this.div);
-  }
-  
-  this.parent.appendChild(this.div);
-  
-};
-
+/******************************************************************
+ *@name CreateToneOptions
+ *@description Creates the list of options that should be available for the tones of a chord.
+ *****************************************************************/
 ACHORD.Objects.Library.prototype.CreateToneOptions = function () {
   var tones;
   
@@ -114,10 +111,10 @@ ACHORD.Objects.Library.prototype.CreateToneOptions = function () {
   return this.CreateOptions(tones);
 };
 
-ACHORD.Objects.Library.prototype.CreateBaseOptions = function () {
-  return ACHORD.Objects.Library.prototype.CreateToneOptions();
-}
-
+/******************************************************************
+ *@name CreateTypeOptions
+ *@description Creates the list of options that should be available for the types of chords.
+ ******************************************************************/
 ACHORD.Objects.Library.prototype.CreateTypeOptions = function () {
   return this.CreateOptions(ACHORD.Constants.ChordTypes);
 }

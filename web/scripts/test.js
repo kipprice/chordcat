@@ -27,6 +27,17 @@ ACHORD.Test.ElemWithKids = function () {
 ACHORD.Test.ElemWithKids2 = function () {
   var elem = ACHORD.Functions.CreateElement({id: "parent", children: [{id: "kid_1", before_content: "kid1"}, {id: "kid_2", before_content: "kid2"}]});
   document.body.appendChild(elem);
+};
+
+ACHORD.Test.Editable = function () {
+  var edit, container;
+  edit = new ACHORD.Objects.Editable("test", "text", "content");
+  container = ACHORD.Functions.CreateSimpleElement();
+  container.style.position = "absolute";
+  container.style.left = "45%";
+  
+  document.body.appendChild(container);
+  edit.Draw(container);
 }
 
 ACHORD.Test.NoteName = function () {

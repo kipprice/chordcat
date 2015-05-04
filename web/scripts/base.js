@@ -14,6 +14,7 @@ ACHORD.Options.Tempo = 120;
 ACHORD.Options.StringNum = 6;
 ACHORD.Options.Strings = [64, 69, 74, 79, 83, 88];
 ACHORD.Options.Sharps = true;
+ACHORD.Options.BeatsPerBar = 4;
 
 ACHORD.Constants.FlatTones = ["A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab"];
 ACHORD.Constants.SharpTones = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
