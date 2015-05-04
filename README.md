@@ -10,7 +10,7 @@ This project stemmed from my own need for a quick way to jot down chords that I 
 - Add lyrics to a phrase
 - Modify strumming patterns within a phrase
 - Add phrases to a song
-- Playback your song
+- Playback of your song
 - Change guitar tuning settings
 - Print your song
 - Save and load locally
