@@ -1,5 +1,5 @@
 # Achord / ChordCat
-Achord is intended to serve as a happy medium between full music notation and plain guitar tab. It allows you to build a chord library, add chords from that library to a set of phrases, and add lyrics.
+Achord (or ChordCat, name is as of yet undecided) is intended to serve as a happy medium between full music notation and plain guitar tab. It allows you to build a chord library, add chords from that library to a set of phrases, and add lyrics.
 
 This project stemmed from my own need for a quick way to jot down chords that I was thinking about for a song, complete with strumming patterns.
 
