@@ -122,3 +122,12 @@
 .chordsContainer .note_finger{
   display: none;
 }
+
+.note_ghost{
+  opacity: 0;
+}
+
+not:(.chordsContainer) .note_ghost:hover{
+  opacity: .5;
+  cursor: pointer;
+}

@@ -1,18 +1,18 @@
-/*globals ACHORD*/
+/*globals KIP,ACHORD*/
 ACHORD.Objects.Strum = function (id) {
   this.id = id;
-  ACHORD.Objects.Drawable.call(this, this.id, "strum_container");
+  KIP.Objects.Drawable.call(this, this.id, "strum_container");
   
   this.CreateElements();
 };
 
-ACHORD.Objects.Strum.prototype = Object.create(ACHORD.Objects.Drawable.prototype);
+ACHORD.Objects.Strum.prototype = Object.create(KIP.Objects.Drawable.prototype);
 
 ACHORD.Objects.Strum.prototype.CreateElements = function () {
-  this.strum = ACHORD.Functions.CreateSimpleElement(this.id + "|strum", "strum");
+  this.strum = KIP.Functions.CreateSimpleElement(this.id + "|strum", "strum");
   this.div.appendChild(this.strum);
   
-  this.lyricDiv = new ACHORD.Objects.Editable(this.id + "|lyric", "text", "-");
+  this.lyricDiv = new KIP.Objects.Editable(this.id + "|lyric", "text", "-");
   this.AppendChild(this.lyricDiv);
 };
 

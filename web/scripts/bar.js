@@ -1,17 +1,19 @@
-/*globals ACHORD*/
+/*globals KIP,ACHORD*/
 ACHORD.Objects.Bar = function (id) {
+  "use strict";
   this.strums = [];
   this.id = id;
   
-  ACHORD.Objects.Drawable.call(this, this.id, "bar");
+  KIP.Objects.Drawable.call(this, this.id, "bar");
   
   this.CreateElements();
   this.AddListeners();
 };
 
-ACHORD.Objects.Bar.prototype = Object.create(ACHORD.Objects.Drawable.prototype);
+ACHORD.Objects.Bar.prototype = Object.create(KIP.Objects.Drawable.prototype);
 
 ACHORD.Objects.Bar.prototype.CreateElements = function () {
+  "use strict";
   var idx;
   
   for (idx = 0; idx < ACHORD.Options.BeatsPerBar; idx += 1) {
@@ -19,7 +21,7 @@ ACHORD.Objects.Bar.prototype.CreateElements = function () {
     this.AppendChild(this.strums[idx]);
   }
   
-  this.endBar = ACHORD.Functions.CreateSimpleElement(this.id + "|end", "endBar");
+  this.endBar = KIP.Functions.CreateSimpleElement(this.id + "|end", "endBar");
 };
 
 ACHORD.Objects.Bar.prototype.AddListeners = function () {
@@ -27,6 +29,7 @@ ACHORD.Objects.Bar.prototype.AddListeners = function () {
 };
 
 ACHORD.Objects.Bar.prototype.AfterDrawChildren = function () {
+  "use strict";
   if (this.endBar.parentNode) {
     this.endBar.parentNode.removeChild(this.endBar);
   }
@@ -38,10 +41,10 @@ ACHORD.Objects.Bar.prototype.AfterDrawChildren = function () {
 ACHORD.Objects.BarGroup = function (id) {
   this.bars = [];
   
-  ACHORD.Objects.Drawable.call(this, id, "barGroup");
+  KIP.Objects.Drawable.call(this, id, "barGroup");
 };
 
-ACHORD.Objects.BarGroup.prototype = Object.create(ACHORD.Objects.Drawable.prototype);
+ACHORD.Objects.BarGroup.prototype = Object.create(KIP.Objects.Drawable.prototype);
 
 ACHORD.Objects.BarGroup.prototype.AddBar = function (id) {
   var idx;

@@ -114,3 +114,59 @@ ACHORD.Test.AChord = function () {
   
   c.PlayChord(1.5);
 };
+
+ACHORD.Test.FindFrets = function () {
+  var n = 0; // C note
+  
+  return ACHORD.Globals.Guitar.FindFrets(n);
+}
+
+ACHORD.Test.FindFretsForNotes = function () {
+  var notes = [0, 13, 26];
+  return ACHORD.Globals.Guitar.FindFretsForMultipleNotes(notes);
+}
+
+ACHORD.Test.TestCombinatorics = function () {
+  var viable_arr = [["A", "B"], ["c"], ["D", "E", "F"]];
+  return ACHORD.Globals.Guitar.Combine(viable_arr);
+};
+
+ACHORD.Test.PossibleCChords = function () {
+  var opt, notes = [0, 4, 7], out;
+  out = [];
+  opt = ACHORD.Globals.Guitar.FindChords(notes);
+  opt.map(function (elem, key, arr) {
+    elem.strings.map(function (s_elem) {
+      out[key] = out[key] || (elem.difficulty + ": ");
+      if (out[key].length > 0) {
+        out[key] +=   "-";
+      }
+      if (s_elem.fret === -1) {
+        out[key] += "X"
+      } else {
+        out[key] += s_elem.fret;
+      }
+    });
+  });
+  return out.join("\n");
+};
+
+ACHORD.Test.PossibleAChords = function () {
+  var opt, notes = [9, 1, 4], out;
+  out = [];
+  opt = ACHORD.Globals.Guitar.FindChords(notes);
+  opt.map(function (elem, key, arr) {
+    elem.strings.map(function (s_elem) {
+      out[key] = out[key] || (elem.difficulty + ": ");
+      if (out[key].length > 0) {
+        out[key] +=   "-";
+      }
+      if (s_elem.fret === -1) {
+        out[key] += "X"
+      } else {
+        out[key] += s_elem.fret;
+      }
+    });
+  });
+  return out.join("\n");
+}

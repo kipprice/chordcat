@@ -1,6 +1,6 @@
 /*globals ACHORD,window*/
 
-ACHORD.Globals.AudioContext = new (window.AudioContext || window.webkitAudioContext)();
+ACHORD.Globals.AudioContext = (new window.AudioContext()) || (new window.webkitAudioContext());
   
 /****************************************************
  *@name Play Note
@@ -107,4 +107,106 @@ ACHORD.Functions.GetNoteLength = function (beats) {
  
   // Return that times the number of beats
   return bpms * beats;
+};
+
+/******************************************************
+ *@name         GetInterval
+ *@description  Finds the intervals that are appropriate to play for this type of chord.
+ *@param        chord_type    The type of chord to get intervals for
+ *@returns      An array containing the note intervals that are appropriate for this chord
+ ******************************************************/
+ACHORD.Functions.GetInterval = function (chord_type) {
+  var name = ACHORD.Constants.ChordTypes[chord_type];
+  
+  switch (name) {
+  
+  case "Major":
+    return [0, 4, 7];
+  
+  case "Minor":
+    return [0, 3, 7];
+    
+  case "Diminished":
+    return [0, 3, 6];
+  
+  case "Augmented":
+    return [0, 4, 8];
+  
+  case "7":
+    return [0, 4, 7, 10];
+  
+  case "Maj 7":
+    return [0, 4, 7, 11]
+    
+  case "Min 7":
+    return [0, 3, 7, 10];
+    
+  case "7 Aug 5":
+    return [0, 4, 8, 10];
+  
+  case "7 Flat 5":
+    return [0, 4, 6, 10];
+  
+  case "Maj 7 Flat 3":
+    return [0, 3, 7, 11];
+  
+  case "Min 7 Flat 5":
+    return [0, 3, 6, 10];
+  
+  case "Sus 4":
+    return [0, 5, 7];
+  
+  case "7 Sus 4":
+    return [0, 5, 7, 10];
+  
+  case "Sus 2":
+    return [0, 2, 7];
+  
+  case "6":
+    return [0, 4, 7, 9];
+  
+  case "Min 6":
+    return [0, 3, 7, 9];
+  
+  case "9":
+    return [0, 2, 4, 7, 10];
+  
+  case "Maj 9":
+    return [0, 2, 4, 7, 11];
+  
+  case "Min 9":
+    return [0, 2, 3, 7, 10];
+
+  case "9 Aug 5":
+    return [0, 2, 4, 8, 10];
+
+  case "9 Flat 5":
+    return [0, 2, 4, 6, 10];
+  
+  case "7 Aug 9":
+    return [0, 3, 4, 7, 10];
+
+  case "7 Flat 9":
+    return [0, 1, 4, 7, 10];
+  
+  case "6 Add 9":
+    return [0, 2, 4, 7, 9];
+  
+  case "11":
+    return [0, 2, 4, 5, 7, 10];
+  
+  case "Aug 11":
+    return [0, 2, 4, 6, 7, 10];
+
+  case "13":
+    return [0, 2, 4, 5, 7, 9, 10];
+  
+  case "13 Flat 9":
+    return [0, 1, 4, 5, 7, 9, 10];
+
+  case "13 Flat 9 Flat 5":
+    return [0, 1, 4, 5, 6, 9, 10];
+  }
+  
+  
 };

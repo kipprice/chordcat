@@ -1,11 +1,11 @@
-/*globals ACHORD,document*/
+/*globals KIP,ACHORD,document*/
 ACHORD.Objects.Library = function () {
   "use strict";
   this.CreateElements();
   this.AddEventListeners();
 };
 
-ACHORD.Objects.Library.prototype = Object.create(ACHORD.Objects.Drawable.prototype);
+ACHORD.Objects.Library.prototype = Object.create(KIP.Objects.Drawable.prototype);
 
 /***************************************************************
  *@name CreateElements
@@ -16,10 +16,10 @@ ACHORD.Objects.Library.prototype.CreateElements = function () {
   var opt;
   
   // ======= Create the main elements ========
-  this.div = ACHORD.Functions.CreateSimpleElement("library", "libraryWrapper");
-  this.newChordBtn = ACHORD.Functions.CreateSimpleElement("newChord", "btn", "+New");
-  this.chordsContainer = ACHORD.Functions.CreateSimpleElement("libraryChordContainer", "chordsContainer");
-  this.chords = ACHORD.Functions.CreateSimpleElement("libraryChords", "chords");
+  this.div = KIP.Functions.CreateSimpleElement("library", "libraryWrapper");
+  this.newChordBtn = KIP.Functions.CreateSimpleElement("newChord", "btn", "+New");
+  this.chordsContainer = KIP.Functions.CreateSimpleElement("libraryChordContainer", "chordsContainer");
+  this.chords = KIP.Functions.CreateSimpleElement("libraryChords", "chords");
   
   
   this.chordsContainer.appendChild(this.newChordBtn);
@@ -27,31 +27,31 @@ ACHORD.Objects.Library.prototype.CreateElements = function () {
   this.div.appendChild(this.chordsContainer);
   
   // ====== Create the elements to display at the top of the form ====== 
-  this.topBar = ACHORD.Functions.CreateSimpleElement("libraryBar", "menuBar");
-  this.minimize = ACHORD.Functions.CreateSimpleElement("minLibrary", "minLibrary");
+  this.topBar = KIP.Functions.CreateSimpleElement("libraryBar", "menuBar");
+  this.minimize = KIP.Functions.CreateSimpleElement("minLibrary", "minLibrary");
   
   this.topBar.appendChild(this.minimize);
   this.div.appendChild(this.topBar);
   
   // ======== Create the elements that appear at the bottom of the form =======
-  this.bottomSec = ACHORD.Functions.CreateSimpleElement("", "libraryBottom");
-  this.chordSelectLbl = ACHORD.Functions.CreateSimpleElement("", "chordSelectLbl", "Create diagram for: ");
+  this.bottomSec = KIP.Functions.CreateSimpleElement("", "libraryBottom");
+  this.chordSelectLbl = KIP.Functions.CreateSimpleElement("", "chordSelectLbl", "Create diagram for: ");
   
   // Create the selector that allows the user to select the tone of the chord
   opt = this.CreateToneOptions();
-  this.toneSelector = ACHORD.Functions.CreateElement({type: "select", id : "toneSelect", children : opt});
+  this.toneSelector = KIP.Functions.CreateElement({type: "select", id : "toneSelect", children : opt});
   
   // Create the selector that allows the user to select the type of chord
   opt = this.CreateTypeOptions();
-  this.typeSelector = ACHORD.Functions.CreateElement({type: "select", id: "typeSelect", children : opt});
+  this.typeSelector = KIP.Functions.CreateElement({type: "select", id: "typeSelect", children : opt});
   
   // Create the selector for the root of the chord
   opt = this.CreateToneOptions();
-  this.baseLabel = ACHORD.Functions.CreateSimpleElement("", "chordSelectLbl", "Root");
-  this.baseSelector = ACHORD.Functions.CreateElement({type: "select", id : "baseSelect", children : opt});
+  this.baseLabel = KIP.Functions.CreateSimpleElement("", "chordSelectLbl", "Root");
+  this.baseSelector = KIP.Functions.CreateElement({type: "select", id : "baseSelect", children : opt});
   
   // Add a button to click after the chord  details are selected
-  this.oldChordBtn = ACHORD.Functions.CreateSimpleElement("oldChord", "btn", "Add");
+  this.oldChordBtn = KIP.Functions.CreateSimpleElement("oldChord", "btn", "Add");
   
   // Add all of the appropriate elements
   this.bottomSec.appendChild(this.chordSelectLbl);
@@ -63,7 +63,7 @@ ACHORD.Objects.Library.prototype.CreateElements = function () {
   this.div.appendChild(this.bottomSec);
   
   // Create the overlay that allows the chords to be edited
-  this.chordOverlay = ACHORD.Functions.CreateSimpleElement("overlay", "fullOverlay");
+  this.chordOverlay = KIP.Functions.CreateSimpleElement("overlay", "fullOverlay");
   this.bigChord = new ACHORD.Objects.Chord("newChord", "New");
 };
 
@@ -85,14 +85,14 @@ ACHORD.Objects.Library.prototype.AddEventListeners = function () {
 ACHORD.Objects.Library.prototype.AddChord = function () {
   "use strict";
   
-  var c = new ACHORD.Objects.Chord("A", "G# Maj");
+  var c = new ACHORD.Objects.Chord("A", "A Maj");
   c.Draw(this.chords);
-  c.AddNote(0, 2, 1);
-  c.AddNote(1, 4, 3);
-  c.AddNote(2, 4, 4);
-  c.AddNote(3, 3, 2);
+  c.AddNote(0, -1, "X");
+  c.AddNote(1, 0, "O");
+  c.AddNote(2, 2, 2);
+  c.AddNote(3, 2, 3);
   c.AddNote(4, 2, 1);
-  c.AddNote(5, 2, 1);
+  c.AddNote(5, 0, "O");
 };
 
 /******************************************************************

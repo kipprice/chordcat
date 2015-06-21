@@ -1,5 +1,6 @@
-/*globals ACHORD*/
+/*globals KIP,ACHORD*/
 ACHORD.Objects.Phrase = function (id, name, bar_num, row_num) {
+  "use strict";
   this.id = id;
   this.name = name;
   this.length = bar_num || 16;
@@ -8,17 +9,22 @@ ACHORD.Objects.Phrase = function (id, name, bar_num, row_num) {
   this.rows = [];
   
   // Call the super constructor
-  ACHORD.Objects.Drawable.call(this, this.name, "phrase");
+  KIP.Objects.Drawable.call(this, this.name, "phrase");
   
   this.CreateElements();
 };
 
-ACHORD.Objects.Phrase.prototype = Object.create(ACHORD.Objects.Drawable.prototype);
+ACHORD.Objects.Phrase.prototype = Object.create(KIP.Objects.Drawable.prototype);
 
+/**************************************************************
+ *@name CreateElements
+ *@description Creates the HTML elements needed for a phrase to be displayed
+ **************************************************************/
 ACHORD.Objects.Phrase.prototype.CreateElements = function () {
+  "use strict";
   var i, j, idx;
   
-  this.nameDiv = new ACHORD.Objects.Editable(this.id + "|name_editable", "text", this.name);
+  this.nameDiv = new KIP.Objects.Editable(this.id + "|name_editable", "text", this.name);
   this.AppendChild(this.nameDiv);
   
   // Create all of the bars that should be contained in this phrase
@@ -32,12 +38,16 @@ ACHORD.Objects.Phrase.prototype.CreateElements = function () {
     }
   }
   
-  this.endBar = ACHORD.Functions.CreateSimpleElement(this.id + "|endBar", "endBar");
+  this.endBar = KIP.Functions.CreateSimpleElement(this.id + "|endBar", "endBar");
   
-  this.hoverMenu = ACHORD.Functions.CreateSimpleElement(this.id + "|hover_menu", "hoverMenu");
+  this.hoverMenu = KIP.Functions.CreateSimpleElement(this.id + "|hover_menu", "hoverMenu");
   
 };
 
+/*****************************************************************
+ *@name AfterDrawChildren (Override)
+ *@description Makes sure that the non-Drawable elements are drawn after the drawables.
+ *****************************************************************/
 ACHORD.Objects.Phrase.prototype.AfterDrawChildren = function () {
   if (this.endBar.parentNode) {
     this.endBar.parentNode.removeChild(this.endBar);

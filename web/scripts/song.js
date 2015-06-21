@@ -1,15 +1,15 @@
-/*globals ACHORD,document*/
+/*globals KIP,ACHORD,document*/
 ACHORD.Objects.Song = function () {
   this.phrases = [];
   this.CreateElements();
   this.AddListeners();
 };
 
-ACHORD.Objects.Song.prototype = Object.create(ACHORD.Objects.Drawable.prototype);
+ACHORD.Objects.Song.prototype = Object.create(KIP.Objects.Drawable.prototype);
 
 ACHORD.Objects.Song.prototype.CreateElements = function () {
-  this.div = ACHORD.Functions.CreateSimpleElement("song_container", "song_container");
-  this.newPhraseBtn = ACHORD.Functions.CreateSimpleElement("phraseBtn", "btn", "+ Phrase");
+  this.div = KIP.Functions.CreateSimpleElement("song_container", "song_container");
+  this.newPhraseBtn = KIP.Functions.CreateSimpleElement("phraseBtn", "btn", "+ Phrase");
   
   this.div.appendChild(this.newPhraseBtn);
 };

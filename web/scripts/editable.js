@@ -25,12 +25,12 @@ ACHORD.Objects.Editable.prototype.AddListeners = function () {
     if (e.cancelBubble !== null) e.cancelBubble = true;
   };
   
-  window.onclick = function (e) {
+  window.addEventListener("click", function (e) {
     if (e.target === that) return;
     if (that.is_modifying) {
       that.Save();
     }
-  }
+  });
   
   this.inputDiv.onkeydown = function (e) {
     if (e.keyCode === 13 && that.is_modifying) {
